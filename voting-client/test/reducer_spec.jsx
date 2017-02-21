@@ -25,6 +25,7 @@ describe('reducer', () => {
             }
         }));
     });
+
     it('handles SET_STATE with plain JS payload', () => {
         const initialState = Map();
         const action = {
@@ -45,6 +46,7 @@ describe('reducer', () => {
             }
         }));
     });
+    
     it('handles SET_STATE without initial state', () => {
         const action = {
             type: 'SET_STATE',
