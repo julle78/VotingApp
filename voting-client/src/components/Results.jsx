@@ -7,6 +7,7 @@ import * as actionCreators from '../action_creators';
 
 
 export const Results =  React.createClass({
+    // the props and state are immutable so we can use purerendering and render only when state changes
     mixins: [PureRenderMixin],
     getPair: function() {
         return this.props.pair || [];
@@ -18,6 +19,7 @@ export const Results =  React.createClass({
         return 0;
     },
     render: function() {
+      //if we have a winner render winner component else render results
         return this.props.winner ?
       <Winner ref="winner" winner={this.props.winner} /> :
         <div className="results">
@@ -42,6 +44,7 @@ export const Results =  React.createClass({
     }
 });
 
+//map state from store to props. This function is called every time the store/state changes
 function mapStateToProps(state) {
     return {
         pair: state.getIn(['vote', 'pair']),
@@ -49,5 +52,5 @@ function mapStateToProps(state) {
         winner: state.get('winner')
     };
 }
-
+// this binds the state and actions to the result component
 export const ResultsContainer = connect(mapStateToProps,actionCreators)(Results);

@@ -1,10 +1,13 @@
 import { List, Map } from 'immutable';
 export const INITIAL_STATE = Map();
+
+
 export function setEntries(state, entries) {
     return state.set('entries', List(entries));
 }
 
 export function vote(voteState, entry) {
+    // immutable.js function updateIn updates the value in "tally"" -> entry. If none found, defaults to 0
     return voteState.updateIn(
         ['tally', entry],
         0,
@@ -23,12 +26,15 @@ function getWinners(vote) {
 }
 
 export function next(state) {
+    // concat the winners back into entries for later vote
     const entries = state.get('entries')
         .concat(getWinners(state.get('vote')));
+    // mark last entry as the winner and remove rest of the state
     if (entries.size === 1) {
         return state.remove('vote')
             .remove('entries')
             .set('winner', entries.first());
+        // otherwise take next two entries for vote
     } else {
         return state.merge({
             vote: Map({ pair: entries.take(2) }),

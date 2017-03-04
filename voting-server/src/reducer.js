@@ -1,5 +1,6 @@
 import { setEntries, next, vote, INITIAL_STATE } from './core';
 
+// the reducer used by redux store
 export default function reducer(state = INITIAL_STATE, action) {
     switch (action.type) {
         case 'SET_ENTRIES':
